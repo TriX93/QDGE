@@ -1,0 +1,33 @@
+html {
+  font-size: $font-size;
+  font-family: $font-family;
+  background: $background-color;
+  color: $font-color;
+  max-width: $page-width;
+  line-height: 1.4;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+h1 {
+  margin: auto;
+  text-align: center;
+  max-width: 90vw;
+}
+
+canvas {
+  display: block;
+  border: 1px solid black;
+  margin: 36px auto;
+}
