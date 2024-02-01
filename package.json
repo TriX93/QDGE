@@ -1,59 +1,43 @@
 {
-  "name": "webpack-boilerplate",
-  "version": "2.0.1",
-  "description": "Sensible webpack 5 boilerplate using Babel and PostCSS with a hot dev server and an optimized production build.",
-  "main": "index.js",
-  "author": "Tania Rascia",
-  "license": "MIT",
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "main": "postcss.config.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
-    "lint": "eslint . src config || true"
-  },
-  "keywords": [
-    "webpack",
-    "webpack 5",
-    "webpack boilerplate"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.13.14",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.13.12",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.2",
-    "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^8.1.1",
-    "cross-env": "^7.0.3",
-    "css-loader": "^5.2.0",
-    "css-minimizer-webpack-plugin": "^1.3.0",
-    "eslint": "^7.12.1",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-import-resolver-webpack": "^0.13.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-webpack-plugin": "^2.1.0",
-    "html-webpack-plugin": "^5.3.1",
-    "mini-css-extract-plugin": "^1.4.0",
-    "node-sass": "^5.0.0",
-    "postcss-loader": "^5.2.0",
-    "postcss-preset-env": "^6.7.0",
-    "prettier": "^2.1.2",
-    "prettier-webpack-plugin": "^1.2.0",
-    "sass-loader": "^11.0.1",
-    "style-loader": "^2.0.0",
-    "ts-loader": "^9.2.5",
-    "typescript": "^4.3.5",
-    "webpack": "^5.28.0",
-    "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2",
-    "webpack-merge": "^5.7.3"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production --node-env=production --config ./config/webpack.prod.js",
+    "build:dev": "webpack --mode=development --config ./config/webpack.dev.js",
+    "build:prod": "webpack --mode=production --node-env=production --config ./config/webpack.prod.js",
+    "watch": "webpack --watch --config ./config/webpack.dev.js",
+    "serve": "webpack serve --config ./config/webpack.dev.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:taniarascia/webpack-boilerplate"
+    "url": "git+https://github.com/TriX93/QDGE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TriX93/QDGE/issues"
+  },
+  "homepage": "https://github.com/TriX93/QDGE#readme",
+  "devDependencies": {
+    "@webpack-cli/generators": "^3.0.7",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "stats.js": "^0.17.0"
+    "babel-loader": "^9.1.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^6.10.0",
+    "html-webpack-plugin": "^5.6.0",
+    "postcss-loader": "^8.1.0",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.1.0",
+    "style-loader": "^3.3.4"
   }
 }

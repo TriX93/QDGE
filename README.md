@@ -3,6 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 [WIP] This is a draft
+[WIP] Mintenance in progress in order to run the project again after 3 yers!
+[WIP] Prod build might not work
 ## Installation
 
 Clone this repo and npm install.

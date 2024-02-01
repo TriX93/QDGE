@@ -4,6 +4,9 @@ const { merge } = require('webpack-merge')
 const common = require('./webpack.common.js')
 const paths = require('./paths')
 
+const stylesHandler = 'style-loader';
+
+
 module.exports = merge(common, {
   // Set the mode to development or production
   mode: 'development',
@@ -14,7 +17,7 @@ module.exports = merge(common, {
   // Spin up a server for quick development
   devServer: {
     historyApiFallback: true,
-    contentBase: paths.build,
+    static: paths.build,
     open: true,
     compress: true,
     hot: true,
@@ -25,16 +28,12 @@ module.exports = merge(common, {
     rules: [
       // Styles: Inject CSS into the head with source maps
       {
-        test: /\.(scss|css)$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: { sourceMap: true, importLoaders: 1, modules: true },
-          },
-          { loader: 'postcss-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } },
-        ],
+        test: /\.css$/i,
+        use: [stylesHandler,'css-loader'],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [stylesHandler, 'css-loader', 'sass-loader'],
       },
     ],
   },
