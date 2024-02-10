@@ -8,6 +8,7 @@ export default class Object {
   x: number = 0;
   y: number = 0;
   sprite: Sprite;
+  _drawBorders: boolean = false;
 
   className: string = "";
 
@@ -42,6 +43,10 @@ export default class Object {
     return this.y;
   }
 
+  setDbgDrawBorders(drawBorders: boolean) {
+    this._drawBorders = drawBorders;
+  }
+
   isPointColliding(x: number, y: number) {
     return this.sprite.isPointColliding(this.x, this.y, x, y);
   }
@@ -57,6 +62,6 @@ export default class Object {
     this.sprite.step(ts);
   }
   draw(ctx: CanvasRenderingContext2D) {
-    this.sprite.draw(ctx, this.x, this.y);
+    this.sprite.draw(ctx, this.x, this.y, this._drawBorders);
   }
 }

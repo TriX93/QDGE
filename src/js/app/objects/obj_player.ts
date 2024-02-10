@@ -20,8 +20,13 @@ export default class ObjPlayer extends Object {
   kb: KeyboardController = KeyboardController.getInstance();
   cm: CollisionsManager = CollisionsManager.getInstance();
 
-  _speed: number = 8;
+  _speed: number = 4;
   _dir = 0;
+  _direction = 0; // direction in radians
+  _vspeed = 0;
+  _hspeed = 0;
+
+  _canInteract:boolean = true;
 
   _idleSprs: Sprite[] = [
     new SprHeroIdleRight(),
@@ -55,30 +60,33 @@ export default class ObjPlayer extends Object {
     const upSpeed = this.kb.checkKeys("KeyW") ? 1 : 0;
     const downSpeed = this.kb.checkKeys("KeyS") ? 1 : 0;
 
-    const vspeed = (downSpeed - upSpeed) * this._speed;
-    const hspeed = (rightSpeed - leftSpeed) * this._speed;
+    this._vspeed = (downSpeed - upSpeed) * this._speed;
+    this._hspeed = (rightSpeed - leftSpeed) * this._speed;
 
-    if (vspeed != 0 || hspeed != 0) {
-      if (vspeed > 0) {
+    if (this._vspeed != 0 || this._hspeed != 0) {
+      if (this._vspeed > 0) {
         this._dir = 1;
       }
-      if (vspeed < 0) {
+      if (this._vspeed < 0) {
         this._dir = 3;
       }
-      if (hspeed > 0) {
+      if (this._hspeed > 0) {
         this._dir = 0;
       }
-      if (hspeed < 0) {
+      if (this._hspeed < 0) {
         this._dir = 2;
       }
 
       this.sprite = this._runSprs[this._dir];
+      this._direction = Math.atan2(this._vspeed, this._hspeed);
+      console.log(this._dir, this._direction);
+
     } else {
       this.sprite = this._idleSprs[this._dir];
     }
 
-    const newx = this.getX() + hspeed;
-    const newy = this.getY() + vspeed;
+    const newx = this.getX() + this._hspeed;
+    const newy = this.getY() + this._vspeed;
 
     if (!this.cm.isPointColliding(newx, newy, "obj_env")) {
       this.setX(newx);
@@ -87,5 +95,10 @@ export default class ObjPlayer extends Object {
 
     this.setDepth(-this.getY());
     super.step(ts);
+
+    const objectInSight = this.cm.castRay(this.getX(), this.getY(), this._direction, this._speed * 30, "obj_env");
+    
+  
   }
+
 }

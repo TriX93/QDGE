@@ -73,7 +73,7 @@ export default class Sprite {
     this._frame = Math.floor(ts / this._mspf) % this.frameCount;
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number, drawCollisions: boolean = false) {
     if (this.imageLoaded) {
       const actualX = x - this.anchor.x - this._camera.originX;
       const actualY = y - this.anchor.y - this._camera.originY;
@@ -96,7 +96,8 @@ export default class Sprite {
       } else {
         ctx.drawImage(this.image, actualX, actualY);
       }
-      //this.drawCollisions(ctx, x, y);
+      if (drawCollisions)
+        this.drawCollisions(ctx, x, y);
     }
   }
 

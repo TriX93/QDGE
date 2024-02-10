@@ -32,6 +32,26 @@ export default class CollisionsManager {
     }
   }
 
+  castRay(x1: number, y1: number, angle: number, distance: number, className:string="*", step: number = 0.1): ({ obj: Object, distance: number }| null) {
+    let i = 0, d2 = 0, a = 0, b = 0;
+    do {
+      const x2 = x1+a;
+      const y2 = y1+b;
+
+      const obj = this.isPointColliding(x2, y2, className);
+      if (obj) {
+        return { obj, distance: d2 };
+      }
+
+      i = i + step;
+      a = Math.cos(angle)*i;
+      b = Math.sin(angle)*i;
+      d2 = Math.sqrt(a*a + b*b);
+    } while (distance >= d2)
+
+    return null;
+  }
+
   public static getInstance() {
     if (!this._instance) {
       this._instance = new CollisionsManager();

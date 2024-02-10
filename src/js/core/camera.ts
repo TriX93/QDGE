@@ -51,4 +51,14 @@ export default class Camera {
     this.maxY = this.originX + this.vh;
   }
   draw() {}
+
+  convertToCanvasX(x: number) {
+    return x - this.originX;
+  }
+
+  convertToCanvasY(y: number) {
+    return y - this.originY;
+  }
+
+  
 }
