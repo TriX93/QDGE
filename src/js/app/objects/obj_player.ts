@@ -66,15 +66,19 @@ export default class ObjPlayer extends Object {
     if (this._vspeed != 0 || this._hspeed != 0) {
       if (this._vspeed > 0) {
         this._dir = 1;
+        this.angle = Math.PI / 2;
       }
       if (this._vspeed < 0) {
         this._dir = 3;
+        this.angle = -Math.PI / 2;
       }
       if (this._hspeed > 0) {
         this._dir = 0;
+        this.angle = 0;
       }
       if (this._hspeed < 0) {
         this._dir = 2;
+        this.angle = Math.PI;
       }
 
       this.sprite = this._runSprs[this._dir];

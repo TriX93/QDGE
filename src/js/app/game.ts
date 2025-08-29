@@ -6,6 +6,8 @@ export default class Game extends Engine {
     super();
   }
 
+  debug = true;
+
   mainRoom: RmMain = new RmMain();
 
   init() {

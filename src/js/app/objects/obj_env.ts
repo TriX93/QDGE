@@ -1,6 +1,6 @@
 import Object from "../../core/object";
 export default class ObjEnv extends Object {
-  className = "obj_env";
+  classList = ["obj_env"];
 
   constructor(x: number, y: number) {
     super();

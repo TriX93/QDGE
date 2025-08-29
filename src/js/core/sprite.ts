@@ -19,6 +19,7 @@ export default class Sprite {
   marginTop: number = 0;
   marginLeft: number = 0;
   gutterLeft: number = 0;
+  rotateOnDraw: boolean = false;
 
   _camera: Camera = Camera.getInstance();
 
@@ -73,7 +74,7 @@ export default class Sprite {
     this._frame = Math.floor(ts / this._mspf) % this.frameCount;
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number, drawCollisions: boolean = false) {
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number, angle: number = 0, drawCollisions: boolean = false, drawRay: boolean = false) {
     if (this.imageLoaded) {
       const actualX = x - this.anchor.x - this._camera.originX;
       const actualY = y - this.anchor.y - this._camera.originY;
@@ -82,22 +83,53 @@ export default class Sprite {
         const sx =
           this.marginLeft + this._frame * (this.tileW + this.gutterLeft);
         const sy = this.marginTop;
-        ctx.drawImage(
-          this.image,
-          sx,
-          sy,
-          this.tileW,
-          this.tileH,
-          actualX,
-          actualY,
-          this.tileW,
-          this.tileH
-        );
+        // rotate only the sprite image if angle is not zero
+        if (angle !== 0 && this.rotateOnDraw) {
+          ctx.save();
+          ctx.translate(actualX + this.anchor.x, actualY + this.anchor.y);
+          ctx.rotate(angle);
+          ctx.drawImage(
+            this.image,
+            sx,
+            sy,
+            this.tileW,
+            this.tileH,
+            -this.anchor.x,
+            -this.anchor.y,
+            this.tileW,
+            this.tileH
+          );
+          ctx.restore();
+        } else {
+          ctx.drawImage(
+            this.image,
+            sx,
+            sy,
+            this.tileW,
+            this.tileH,
+            actualX,
+            actualY,
+            this.tileW,
+            this.tileH
+          );
+        }
       } else {
         ctx.drawImage(this.image, actualX, actualY);
       }
       if (drawCollisions)
         this.drawCollisions(ctx, x, y);
+
+      if (drawRay) {
+        ctx.strokeStyle = "#00FF00";
+        ctx.beginPath();
+        ctx.moveTo(actualX + this.anchor.x, actualY + this.anchor.y);
+        const rayLength = 200;
+        const rayX = actualX + this.anchor.x + Math.cos(angle) * rayLength;
+        const rayY = actualY + this.anchor.y + Math.sin(angle) * rayLength;
+        ctx.lineTo(rayX, rayY);
+        ctx.stroke();
+        ctx.strokeStyle = "#0000FF";
+      } 
     }
   }
 

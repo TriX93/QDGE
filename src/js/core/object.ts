@@ -9,8 +9,9 @@ export default class Object {
   y: number = 0;
   sprite: Sprite;
   _drawBorders: boolean = false;
+  angle: number = 0;
 
-  className: string = "";
+  classList: string[] = [];
 
   instanceId: number;
 
@@ -55,6 +56,18 @@ export default class Object {
     return this.sprite.isRectColliding(this.x, this.y, x1, y1, x2, y2);
   }
 
+  isLookingAt(obj: Object, fov: number = Math.PI / 4, maxDistance: number = 100): boolean {
+    const dx = obj.getX() - this.getX();
+    const dy = obj.getY() - this.getY();
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance > maxDistance) return false; 
+    const angleToObj = Math.atan2(dy, dx);
+    let angleDiff = angleToObj - this.angle;
+    angleDiff = (angleDiff + Math.PI * 2) % (Math.PI * 2); 
+    if (angleDiff > Math.PI) angleDiff -= Math.PI * 2; 
+    return Math.abs(angleDiff) <= fov / 2;
+  }
+
   init() {
     if (!!this.sprite)
       this.sprite.init();
@@ -65,6 +78,6 @@ export default class Object {
   }
   draw(ctx: CanvasRenderingContext2D) {
     if (!!this.sprite && this.visible)
-      this.sprite.draw(ctx, this.x, this.y, this._drawBorders);
+      this.sprite.draw(ctx, this.x, this.y, this.angle);
   }
 }

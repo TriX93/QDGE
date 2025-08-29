@@ -47,7 +47,7 @@ export default class Room {
     const objs: Object[] = this.layers.map((l) => l.getInstances()).flat();
 
     if (!!className) {
-      return objs.filter((i) => i.className == className);
+      return objs.filter((i) => i.classList.indexOf(className) >= 0);
     }
 
     return objs;
