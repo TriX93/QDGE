@@ -114,7 +114,15 @@ export default class Sprite {
           );
         }
       } else {
-        ctx.drawImage(this.image, actualX, actualY);
+        if (angle !== 0 && this.rotateOnDraw) {
+          ctx.save();
+          ctx.translate(actualX + this.anchor.x, actualY + this.anchor.y);    
+          ctx.rotate(angle);
+          ctx.drawImage(this.image, -this.anchor.x, -this.anchor.y);
+          ctx.restore();
+        } else  {
+          ctx.drawImage(this.image, actualX, actualY);
+        }
       }
       if (drawCollisions)
         this.drawCollisions(ctx, x, y);
