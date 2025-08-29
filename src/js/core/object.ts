@@ -56,12 +56,15 @@ export default class Object {
   }
 
   init() {
-    this.sprite.init();
+    if (!!this.sprite)
+      this.sprite.init();
   }
   step(ts: number) {
-    this.sprite.step(ts);
+    if (!!this.sprite)
+        this.sprite.step(ts);
   }
   draw(ctx: CanvasRenderingContext2D) {
-    this.sprite.draw(ctx, this.x, this.y, this._drawBorders);
+    if (!!this.sprite && this.visible)
+      this.sprite.draw(ctx, this.x, this.y, this._drawBorders);
   }
 }
